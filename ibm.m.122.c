@@ -1,4 +1,4 @@
-#include "evil80.h"
+#include "ibm.m.122.h"
 void matrix_init_kb(void) {
     // put your keyboard start-up code here
     // runs once when the firmware starts up
