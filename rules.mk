@@ -1,7 +1,8 @@
 # MCU name
-MCU = at90usb1287
+#MCU = at90usb1287
 #MCU = atmega32u4
-
+MCU = at90usb1286
+BOOTLOADER = halfkay
 # Processor frequency.
 #     This will define a symbol, F_CPU, in all source code files equal to the
 #     processor frequency in Hz. You can then use this symbol in your source code to
@@ -44,7 +45,7 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 #   Atmel DFU loader 4096
 #   LUFA bootloader  4096
 #   USBaspLoader     2048
-OPT_DEFS += -DBOOTLOADER_SIZE=4096
+OPT_DEFS += -DBOOTLOADER_SIZE=1024
 
 # Build Options
 #   change to "no" to disable the options, or define them in the Makefile in

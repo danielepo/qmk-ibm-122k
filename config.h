@@ -15,9 +15,12 @@
 #define MATRIX_COLS 20
 
 /* Planck PCB default pin-out */
-#define MATRIX_ROW_PINS { E1, E0, D7, D5, D4, D3, D2, D1, D0 }
-#define MATRIX_COL_PINS { C7, C6, C5, C4, C3, C2, C2, C1, C0, F7,\
-                 F6, F5, F4, F3, F2, F2, F1, F0, B0, B1, B2, B3 }
+#define MATRIX_ROW_PINS { B6, D7, D5, D4, D3, D2, D1, D0 }
+// #define MATRIX_ROW_PINS { E1 }
+#define MATRIX_COL_PINS { C7, C6, C5, C4, C3, C2, C1, C0, \
+                          F7, F6, F5, F4, F3, F2, F1, F0, \
+                          B0, B1, B2, B3 };
+
 #define UNUSED_PINS
 
 #define BACKLIGHT_PIN B5

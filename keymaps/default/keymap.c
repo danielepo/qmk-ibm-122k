@@ -1,31 +1,135 @@
 #include QMK_KEYBOARD_H
 
+#define CAPS CAPSLOCK
+#define KC_CAPS KC_CAPSLOCK
+
+#define NUBS NONUS_BSLASH
+#define KC_NUBS KC_NONUS_BSLASH
+
+// Layer Declarations
+enum {
+    STANDARD = 0,
+    NAVIGATION,
+    KEYPAD
+    // ..., the rest of your layers
+};
+#define KC_FN0 TO(STANDARD)
+#define KC_FN1 LT(NAVIGATION, KC_CAPSLOCK)
+#define KC_FN2 TO(KEYPAD)
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    /* 0: Winkey */
-    LAYOUT(
-        KC_ESC,          KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9, KC_F10, KC_F11, KC_F12,     KC_PSCR,KC_SLCK,KC_PAUS,\
-        KC_GRV,   KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,KC_MINS, KC_EQL,KC_BSPC,      KC_INS,KC_HOME,KC_PGUP,\
-        KC_TAB,   KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,KC_LBRC,KC_RBRC,KC_BSLS,      KC_DEL, KC_END,KC_PGDN,\
-       KC_CAPS,   KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,KC_SCLN,KC_QUOT,KC_NUHS, KC_ENT,                             \
-       KC_LSFT,KC_NUBS,   KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,KC_COMM, KC_DOT,KC_SLSH,KC_RSFT,  MO(2),               KC_UP,        \
-       KC_LCTL,KC_LGUI,KC_LALT,                         KC_SPC,                        KC_RALT,KC_RGUI, KC_APP,KC_RCTL,     KC_LEFT,KC_DOWN,KC_RGHT \
-	   ),
-    /* 1: Winkeyless */
-    LAYOUT(
-        KC_ESC,          KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9, KC_F10, KC_F11, KC_F12,     KC_PSCR,KC_SLCK,KC_PAUS,\
-        KC_GRV,   KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,KC_MINS, KC_EQL,KC_BSPC,      KC_INS,KC_HOME,KC_PGUP,\
-        KC_TAB,   KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,KC_LBRC,KC_RBRC,KC_BSLS,      KC_DEL, KC_END,KC_PGDN,\
-       KC_CAPS,   KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,KC_SCLN,KC_QUOT,KC_NUHS, KC_ENT,                             \
-       KC_LSFT,KC_NUBS,   KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,KC_COMM, KC_DOT,KC_SLSH,KC_RSFT,  MO(2),               KC_UP,        \
-       KC_LCTL,KC_LGUI,KC_LALT,                         KC_SPC,                          KC_NO,KC_RALT,KC_RGUI,KC_RCTL,     KC_LEFT,KC_DOWN,KC_RGHT \
-	   ),
-    /* 2: Fn */
-    LAYOUT(
-       KC_TRNS,          BL_ON, BL_OFF,BL_STEP,BL_BRTG,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,     KC_TRNS,KC_TRNS,KC_TRNS,\
-       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,     KC_TRNS,KC_TRNS,KC_TRNS,\
-       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,     KC_TRNS,KC_TRNS,KC_TRNS,\
-       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,                             \
-       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,             KC_TRNS,        \
-       KC_TRNS,KC_TRNS,KC_TRNS,                        KC_TRNS,                        KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,     KC_TRNS,KC_TRNS,KC_TRNS \
-	   ),
+  [STANDARD] = KEYMAP(
+     /* Keymap 0: Default Layer
+     * ,---------------------------------------------------------------------------------------------------------------------------------.
+     * |                 |PrnSc|ScrLk|Pause|Lock |    | << |Play|Stop| >> |Mute|Vol-|Vol+|                                               |
+     * |                 |  F1 |  F2 |  F3 |  F4 |  F5|  F6|  F7|  F8|  F9| F10| F11| F12|                                               |
+     * |---------------------------------------------------------------------------------------------------------------------------------|
+     * |Copy|Pste|    | `  |  1 |  2 |  3 |  4 |  5 |  6 |  7 |  8 |  9 |  0 |  - |  = | Bspc|   | INS|HOME|PGUP|   |NLCK| PSLS|PAST|PMNS|
+     * |Cut |Caps|    |Tab |  Q |  W |  E |  R |  T |  Y |  U |  I |  O |  P |  [ | ]  |Enter|   | DEL| END|PGDN|   | P7 |  P8 |  P9|PPLS|
+     * |BT< |BT>+|    |FN1 |  A |  S |  D |  F |  G |  H |  J |  K |  L |  ; |  ' | \    |            | UP |        | P4 |  P5 |  P6|  = |
+     * |MC1 |App |    |Shft|  \ |  Z |  X |  C |  V |  B |  N |  M |  , |  . |  / | *  |Shift|   |LEFT|DOWN|RGHT|   | P1 |  P2 |  P3|PENT|
+     * |Esc |GUI |    |Ctrl|    |Alt |            Space                 | Alt|    |Ctrl|              | FN |        | P0       |PDOT|  * |
+     * `---------------------------------------------------------------------------------------------------------------------------------'
+     */
+                              PSCR, SLCK, PAUS,NO,  NO,  MPRV,MPLY,MSTP,MNXT, MUTE, VOLD, VOLU,
+                              F1,   F2,   F3,  F4,  F5,  F6,  F7,  F8,  F9,   F10,  F11,  F12,
+
+  FN0 , ESC    , GRAVE,  1  ,  2  ,  3  ,  4  ,  5  ,  6  ,  7  ,  8  ,  9  ,  0  , MINS, EQL , BSPC  ,  INS , HOME, PGUP  ,    NLCK, PSLS, PAST, PMNS,
+  FN1 ,CAPSLOCK, TAB  ,  Q  ,  W  ,  E  ,  R  ,  T  ,  Y  ,  U  ,  I  ,  O  ,  P  , LBRC, RBRC, ENT   ,  DEL , END , PGDN  ,    P7  , P8  , P9  , PPLS,
+  FN2 , ___    , FN1  ,  A  ,  S  ,  D  ,  F  ,  G  ,  H  ,  J  ,  K  ,  L  , SCLN, QUOT, BSLS,                UP  ,            P4  , P5  , P6  , EQL ,
+  FN3 , APP    , LSFT , NUBS,  Z  ,  X  ,  C  ,  V  ,  B  ,  N  ,  M  , COMM, DOT , SLSH,       RSFT  ,  LEFT, DOWN, RGHT  ,    P1  , P2  , P3  , PENT,
+  FN4 , RGUI   , LCTL ,       LALT,             SPC ,                         RALT,             RCTL  ,         NO ,            P0        ,PDOT
+),
+
+ [NAVIGATION] = KEYMAP(
+//      /* Keymap 0: Default Layer
+//      * ,---------------------------------------------------------------------------------------------------------------------------------.
+//      * |                 |PrnSc|ScrLk|Pause|Lock |    | << |Play|Stop| >> |Mute|Vol-|Vol+|                                               |
+//      * |                 |  F1 |  F2 |  F3 |  F4 |  F5|  F6|  F7|  F8|  F9| F10| F11| F12|                                               |
+//      * |---------------------------------------------------------------------------------------------------------------------------------|
+//      * |Copy|Pste|    | `  |  1 |  2 |  3 |  4 |  5 |  6 |  7 |  8 |  9 |  0 |  - |  = | Bspc|   | INS|HOME|PGUP|   |NLCK| PSLS|PAST|PMNS|
+//      * |Cut |Caps|    |Tab |  Q |  W |  E |  R |  T |  Y |  U |  I |  O |  P |  [ | ]  |Enter|   | DEL| END|PGDN|   | P7 |  P8 |  P9|PPLS|
+//      * |BT< |BT>+|    |FN1 |  A |  S |  D |  F |  G |  H |  J |  K |  L |  ; |  ' | \    |            | UP |        | P4 |  P5 |  P6|  = |
+//      * |MC1 |App |    |Shft|  \ |  Z |  X |  C |  V |  B |  N |  M |  , |  . |  / | *  |Shift|   |LEFT|DOWN|RGHT|   | P1 |  P2 |  P3|PENT|
+//      * |Esc |GUI |    |Ctrl|    |Alt |            Space                 | Alt|    |Ctrl|              | FN |        | P0       |PDOT|  * |
+//      * `---------------------------------------------------------------------------------------------------------------------------------'
+//      */
+                 ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                 ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+
+ FN0 , _T_   ,   1   , F1  , F2  , F3  , F4  , F5  , F6  , F7  , F8  , F9  , F10 , F11 , F12 , _T_   ,   ___ , ___ , ___  ,  ___ , ___ , ___ , ___ ,
+ FN1 , ___   ,   ___ , ESC , ___ , ___ , ___ , ___ , PGUP, HOME, UP  , END , DEL , ___ , ___ , _T_   ,   ___ , ___ , ___  ,  ___ , ___ , ___ , ___ ,
+ FN2 , ___   ,   FN1 , LALT, ___ , LSFT, LCTL, ___ , PGDN, LEFT, DOWN, RGHT, BSPC, APP , ___ ,                 _T_        ,  ___ , ___ , ___ , ___ ,
+ FN3 , ___   ,   ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ ,           _T_ , _T_ , _T_  ,  ___ , ___ , ___ , ___ ,
+ FN4 , ___   ,   ___ ,       ___ ,             ENT ,                         ___ ,       ___ ,                 ___ ,         ___ ,       ___
+),
+
+  [KEYPAD] = KEYMAP(
+//      /* Keymap 0: Default Layer
+//      * ,---------------------------------------------------------------------------------------------------------------------------------.
+//      * |                 |PrnSc|ScrLk|Pause|Lock |    | << |Play|Stop| >> |Mute|Vol-|Vol+|                                               |
+//      * |                 |  F1 |  F2 |  F3 |  F4 |  F5|  F6|  F7|  F8|  F9| F10| F11| F12|                                               |
+//      * |---------------------------------------------------------------------------------------------------------------------------------|
+//      * |Copy|Pste|    | `  |  1 |  2 |  3 |  4 |  5 |  6 |  7 |  8 |  9 |  0 |  - |  = | Bspc|   | INS|HOME|PGUP|   |NLCK| PSLS|PAST|PMNS|
+//      * |Cut |Caps|    |Tab |  Q |  W |  E |  R |  T |  Y |  U |  I |  O |  P |  [ | ]  |Enter|   | DEL| END|PGDN|   | P7 |  P8 |  P9|PPLS|
+//      * |BT< |BT>+|    |FN1 |  A |  S |  D |  F |  G |  H |  J |  K |  L |  ; |  ' | \    |            | UP |        | P4 |  P5 |  P6|  = |
+//      * |MC1 |App |    |Shft|  \ |  Z |  X |  C |  V |  B |  N |  M |  , |  . |  / | *  |Shift|   |LEFT|DOWN|RGHT|   | P1 |  P2 |  P3|PENT|
+//      * |Esc |GUI |    |Ctrl|    |Alt |            Space                 | Alt|    |Ctrl|              | FN |        | P0       |PDOT|  * |
+//      * `---------------------------------------------------------------------------------------------------------------------------------'
+//      */
+                 ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                 ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+
+ FN0 , ___   ,   2   , ___ , ___ , ___ , ___ , ___ , ___ , P7  , P8  , P9  , PMNS, ___ , ___ , ___   ,   ___ , ___ , ___  ,  ___ , ___ , ___ , ___ ,
+ FN1 , ___   ,   ___ , ___ , ___ , ___ , ___ , ___ , ___ , P4  , P5  , P6  , PPLS, ___ , ___ , ___   ,   ___ , ___ , ___  ,  ___ , ___ , ___ , ___ ,
+ FN2 , ___   ,   FN0 , ___ , ___ , ___ , ___ , ___ , ___ , P1  , P2  , P3  , PAST, ___ , ___ ,                 ___        ,  ___ , ___ , ___ , ___ ,
+ FN3 , ___   ,   ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , P0  , PDOT, PSLS, ___ , ___ ,           ___ , ___ , ___  ,  ___ , ___ , ___ , ___ ,
+ FN4 , ___   ,   ___ ,       ___ ,             ENT ,                         ___ ,       ___ ,                 ___ ,         ___ ,       ___
+),
+
+ KEYMAP(
+//      /* Keymap 0: Default Layer
+//      * ,---------------------------------------------------------------------------------------------------------------------------------.
+//      * |                 |PrnSc|ScrLk|Pause|Lock |    | << |Play|Stop| >> |Mute|Vol-|Vol+|                                               |
+//      * |                 |  F1 |  F2 |  F3 |  F4 |  F5|  F6|  F7|  F8|  F9| F10| F11| F12|                                               |
+//      * |---------------------------------------------------------------------------------------------------------------------------------|
+//      * |Copy|Pste|    | `  |  1 |  2 |  3 |  4 |  5 |  6 |  7 |  8 |  9 |  0 |  - |  = | Bspc|   | INS|HOME|PGUP|   |NLCK| PSLS|PAST|PMNS|
+//      * |Cut |Caps|    |Tab |  Q |  W |  E |  R |  T |  Y |  U |  I |  O |  P |  [ | ]  |Enter|   | DEL| END|PGDN|   | P7 |  P8 |  P9|PPLS|
+//      * |BT< |BT>+|    |FN1 |  A |  S |  D |  F |  G |  H |  J |  K |  L |  ; |  ' | \    |            | UP |        | P4 |  P5 |  P6|  = |
+//      * |MC1 |App |    |Shft|  \ |  Z |  X |  C |  V |  B |  N |  M |  , |  . |  / | *  |Shift|   |LEFT|DOWN|RGHT|   | P1 |  P2 |  P3|PENT|
+//      * |Esc |GUI |    |Ctrl|    |Alt |            Space                 | Alt|    |Ctrl|              | FN |        | P0       |PDOT|  * |
+//      * `---------------------------------------------------------------------------------------------------------------------------------'
+//      */
+                 ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                 ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+
+ FN0 , ___   ,   3   , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___   ,   ___ , ___ , ___  ,  ___ , ___ , ___ , ___ ,
+ FN1 , ___   ,   ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___   ,   ___ , ___ , ___  ,  ___ , ___ , ___ , ___ ,
+ FN2 , ___   ,   FN0 , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ ,                 ___        ,  ___ , ___ , ___ , ___ ,
+ FN3 , ___   ,   ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ ,           ___ , ___ , ___  ,  ___ , ___ , ___ , ___ ,
+ FN4 , ___   ,   ___ ,       ___ ,             ___ ,                         ___ ,       ___ ,                 ___ ,         ___ ,       ___
+),
+
+ KEYMAP(
+//      /* Keymap 0: Default Layer
+//      * ,---------------------------------------------------------------------------------------------------------------------------------.
+//      * |                 |PrnSc|ScrLk|Pause|Lock |    | << |Play|Stop| >> |Mute|Vol-|Vol+|                                               |
+//      * |                 |  F1 |  F2 |  F3 |  F4 |  F5|  F6|  F7|  F8|  F9| F10| F11| F12|                                               |
+//      * |---------------------------------------------------------------------------------------------------------------------------------|
+//      * |Copy|Pste|    | `  |  1 |  2 |  3 |  4 |  5 |  6 |  7 |  8 |  9 |  0 |  - |  = | Bspc|   | INS|HOME|PGUP|   |NLCK| PSLS|PAST|PMNS|
+//      * |Cut |Caps|    |Tab |  Q |  W |  E |  R |  T |  Y |  U |  I |  O |  P |  [ | ]  |Enter|   | DEL| END|PGDN|   | P7 |  P8 |  P9|PPLS|
+//      * |BT< |BT>+|    |FN1 |  A |  S |  D |  F |  G |  H |  J |  K |  L |  ; |  ' | \    |            | UP |        | P4 |  P5 |  P6|  = |
+//      * |MC1 |App |    |Shft|  \ |  Z |  X |  C |  V |  B |  N |  M |  , |  . |  / | *  |Shift|   |LEFT|DOWN|RGHT|   | P1 |  P2 |  P3|PENT|
+//      * |Esc |GUI |    |Ctrl|    |Alt |            Space                 | Alt|    |Ctrl|              | FN |        | P0       |PDOT|  * |
+//      * `---------------------------------------------------------------------------------------------------------------------------------'
+//      */
+                 ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                 ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+
+ FN0 , ___   ,   4   , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___   ,   ___ , ___ , ___  ,  ___ , ___ , ___ , ___ ,
+ FN1 , ___   ,   ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___   ,   ___ , ___ , ___  ,  ___ , ___ , ___ , ___ ,
+ FN2 , ___   ,   FN0 , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ ,                 ___        ,  ___ , ___ , ___ , ___ ,
+ FN3 , ___   ,   ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ , ___ ,           ___ , ___ , ___  ,  ___ , ___ , ___ , ___ ,
+ FN4 , ___   ,   ___ ,       ___ ,             ___ ,                         ___ ,       ___ ,                 ___ ,         ___ ,       ___
+)
 };
