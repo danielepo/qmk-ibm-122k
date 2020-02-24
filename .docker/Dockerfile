@@ -1,5 +1,6 @@
-FROM dnlpozzobon/qmk
+FROM dnlpozzobon/qmk:1
 
 COPY . /qmk_firmware/keyboards/evil80/
+COPY ./.docker/entrypoint.sh ./entrypoint.sh
 
-ENTRYPOINT [ "make", "evil80" ]
+ENTRYPOINT [ "./entrypoint.sh" ]

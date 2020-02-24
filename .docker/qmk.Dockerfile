@@ -12,3 +12,5 @@ RUN apt install sudo wget gcc -y
 RUN make git-submodule
 
 RUN ./util/qmk_install.sh
+
+RUN mkdir teensyloader && cd teensyloader && mkdir Windows && cd Windows && wget https://www.pjrc.com/teensy/teensy.exe
